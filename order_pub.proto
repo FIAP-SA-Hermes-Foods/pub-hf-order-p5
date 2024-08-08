@@ -1,0 +1,77 @@
+syntax = "proto3";
+option go_package = "hf-order-api-service/order_api-proto";
+
+message Item {
+  string productUuid = 1;
+  int64 orderId = 2;
+  int64 quantity = 3;
+}
+
+message CreateOrderRequest {
+  string clientUuid = 1;
+  string voucherUuid = 2;
+  repeated Item items = 3;
+}
+
+message CreateOrderResponse {
+  int64 id = 1;
+  string clientUuid = 2;
+  string voucherUuid = 3;
+  repeated Item items = 4;
+  string status = 5;
+  string verificationCode = 6;
+  string createdAt = 7;
+}
+
+message GetOrderByIDRequest { int64 id = 1; }
+
+message GetOrderByIDResponse {
+  int64 id = 1;
+  string clientUuid = 2;
+  string voucherUuid = 3;
+  repeated Item items = 4;
+  string status = 5;
+  string verificationCode = 6;
+  string createdAt = 7;
+}
+
+message UpdateOrderRequest {
+  int64 id = 1;
+  string clientUuid = 2;
+  string voucherUuid = 3;
+  repeated Item items = 4;
+  string status = 5;
+  string verificationCode = 6;
+  string createdAt = 7;
+}
+
+message UpdateOrderResponse {
+  int64 id = 1;
+  string clientUuid = 2;
+  string voucherUuid = 3;
+  repeated Item items = 4;
+  string status = 5;
+  string verificationCode = 6;
+  string createdAt = 7;
+}
+
+message OrderItem {
+  int64 id = 1;
+  string clientUuid = 2;
+  string voucherUuid = 3;
+  repeated Item items = 4;
+  string status = 5;
+  string verificationCode = 6;
+  string createdAt = 7;
+}
+
+message GetOrderRequest {}
+
+message GetOrderResponse { repeated OrderItem orders = 1; }
+
+service Order {
+  rpc CreateOrder(CreateOrderRequest) returns (CreateOrderResponse);
+  rpc GetOrderByID(GetOrderByIDRequest) returns (GetOrderByIDResponse);
+  rpc UpdateOrder(UpdateOrderRequest) returns (UpdateOrderResponse);
+  rpc GetOrder(GetOrderRequest) returns (GetOrderResponse);
+}
